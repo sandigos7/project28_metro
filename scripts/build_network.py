@@ -7,19 +7,14 @@ import os
 from pathlib import Path
 import zipfile
 
-# -----------------------
 # 1. Define Paths
-# -----------------------
 # Get the script directory and construct paths relative to project root
 script_dir = Path(__file__).parent
 project_root = script_dir.parent
 gtfs_bus_zip = project_root / "data" / "gtfs_bus" / "gtfs_bus.zip"
 gtfs_rail_zip = project_root / "data" / "gtfs_rail" / "gtfs_rail.zip"
 
-# -----------------------
 # 2. Load GTFS Files from ZIP archives
-# -----------------------
-# Check if ZIP files exist
 if not gtfs_bus_zip.exists():
     raise FileNotFoundError(f"Bus GTFS file not found: {gtfs_bus_zip}")
 if not gtfs_rail_zip.exists():
@@ -46,9 +41,7 @@ rail_trips = read_csv_from_zip(gtfs_rail_zip, "trips.txt")
 rail_stop_times = read_csv_from_zip(gtfs_rail_zip, "stop_times.txt")
 rail_routes = read_csv_from_zip(gtfs_rail_zip, "routes.txt")
 
-# -----------------------
 # 3. Combine Stops
-# -----------------------
 # Check required columns exist
 required_cols = ['stop_id', 'stop_name', 'stop_lat', 'stop_lon']
 for col in required_cols:
@@ -67,9 +60,7 @@ stops_gdf = gpd.GeoDataFrame(stops_all,
                              geometry=gpd.points_from_xy(stops_all.stop_lon, stops_all.stop_lat),
                              crs="EPSG:4326")
 
-# -----------------------
 # 4. Build Transit Network
-# -----------------------
 G = nx.DiGraph()
 
 # Add stops as nodes
@@ -100,9 +91,7 @@ def add_edges(trips_df, stop_times_df, mode_name):
 add_edges(bus_trips, bus_stop_times, 'bus')
 add_edges(rail_trips, rail_stop_times, 'rail')
 
-# -----------------------
 # 5. Plot Stops
-# -----------------------
 # Create visualization map
 import matplotlib
 matplotlib.use('Agg')  # Non-interactive backend
