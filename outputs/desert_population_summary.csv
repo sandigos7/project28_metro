@@ -1,0 +1,7 @@
+desert_type,block_groups,population,pct_population,pct_block_groups,pop_density_mean
+Distance-based (>800m),1972.0,9266048.0,32.42252042746419,30.024360535931788,
+Frequency-based (no ≥4 trips/hr within 800m),3522.0,16252858.0,56.86983496196811,53.62362971985384,
+Severe (frequency + distance),1972.0,9266048.0,32.42252042746419,30.024360535931788,
+Priority (high pop density + frequency desert),1303.0,6703704.0,23.45670774419401,19.838611449451886,
+Mean pop density - Desert areas,,,,,10910.860303158639
+Mean pop density - Non-desert areas,,,,,18117.775730310048
